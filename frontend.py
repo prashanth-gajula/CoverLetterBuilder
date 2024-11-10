@@ -1,7 +1,7 @@
 import streamlit as st
 import re
 from PyPDF2 import PdfReader
-
+from streamlit_pdf_viewer import pdf_viewer
 def clean_text(text):
     # Replace multiple newlines with a single newline to avoid excessive line breaks
     text = re.sub(r'\n{2,}', '\n', text)
@@ -21,19 +21,11 @@ def main():
     pdf = st.file_uploader("Please submit your resume",type='pdf')
     
     text = " "
-    
-    
 
     if pdf:
-        resume = PdfReader(pdf)
-        """st.write(resume)"""
-        #printing the uploaded resume
-        
-        for page in resume.pages:
-            page_text = page.extract_text()
-            text += page_text + "\n\n"
-        text = clean_text(text) 
-        st.write(text)
+        #Displaying the uploaded resume
+        binary_data = pdf.getvalue()
+        pdf_viewer(input=binary_data,width=700)
 if __name__ == "__main__":
     main()
     
