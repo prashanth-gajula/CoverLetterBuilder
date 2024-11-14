@@ -11,21 +11,24 @@ def main():
 
     #uploading a pdf file
     pdf = st.file_uploader("Please submit your resume",type='pdf')
-    
-   
+    User_Instructions = st.text_area("Enter Instructions",value="",placeholder="Please enter organization name in instructions for better results")
+    Generate = st.button("Generate Cover Letter")
+    if Generate:
+        if pdf:
+            #Displaying the uploaded resume
+            #binary_data = pdf.getvalue()
+            #pdf_viewer(input=binary_data,width=700)---code that will display the uploaded resume
+            #st.write("Cover Letter For the Uploaded Resume:")
+            pdf_reader = PdfReader(pdf)
+            text = " "
+            for page in pdf_reader.pages:
+                text +=page.extract_text()
+            #st.write(text)
+            CoverLetter = Generate_Cover_Letter(text)
+            st.write(CoverLetter.content) 
+        else:
+            st.warning('Please Enter Resume', icon="⚠️")  
 
-    if pdf:
-        #Displaying the uploaded resume
-        binary_data = pdf.getvalue()
-        pdf_viewer(input=binary_data,width=700)
-        #st.write("Cover Letter For the Uploaded Resume:")
-        pdf_reader = PdfReader(pdf)
-        text = " "
-        for page in pdf_reader.pages:
-            text +=page.extract_text()
-        #st.write(text)
-        CoverLetter = Generate_Cover_Letter(text)
-        st.write(CoverLetter.content)
     
 if __name__ == "__main__":
     main()
