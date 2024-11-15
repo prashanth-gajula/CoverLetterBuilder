@@ -24,7 +24,7 @@ def main():
             for page in pdf_reader.pages:
                 text +=page.extract_text()
             #st.write(text)
-            CoverLetter = Generate_Cover_Letter(text)
+            CoverLetter = Generate_Cover_Letter(text,User_Instructions)
             st.write(CoverLetter.content) 
         else:
             st.warning('Please Enter Resume', icon="⚠️")  
